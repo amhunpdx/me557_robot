@@ -26,21 +26,27 @@ end
 LetterAwLift = [LetterAwLift; points(end,1), points(end,2), 0];
 LetterAwLift = [LetterAwLift; points(end,1), points(end,2), -0.5];
 
-% % Create a figure
-% figure;
-% hold on;
-% grid on;
-% axis([-0.5 2 -0.5 2]);
-% title('Modified Plot of LetterAwLift');
-% 
-% % Plot the points with condition on distance
-% for i = 1:length(LetterAwLift)-1
-%     if LetterAwLift(i,3) == 0 && LetterAwLift(i+1,3) == 0
-%         plot(LetterAwLift(i:i+1,1), LetterAwLift(i:i+1,2), 'b-', 'LineWidth', 2);
-%     end
-% end
-% 
-% % Display the points
-% plot(LetterAwLift(:,1), LetterAwLift(:,2), 'ro', 'MarkerFaceColor', 'r');
-% hold off;
+% Create a figure
+figure;
+hold on;
+grid on;
+axis([-0.5 2 -0.5 2 -1 1]); % Adjusted for 3D space
+xlabel('X'); ylabel('Y'); zlabel('Z');
+title('Animated 3D Plot of LetterAwLift');
+view(3);
 
+% Initialize plot handles
+hPoints = plot3(NaN, NaN, NaN, 'ro', 'MarkerFaceColor', 'r');
+hLines = plot3(NaN, NaN, NaN, 'b-', 'LineWidth', 2);
+
+% Animate the drawing process
+for i = 1:length(LetterAwLift)-1
+    set(hPoints, 'XData', LetterAwLift(1:i,1), 'YData', LetterAwLift(1:i,2), 'ZData', LetterAwLift(1:i,3));
+    if LetterAwLift(i,3) == 0 && LetterAwLift(i+1,3) == 0
+        set(hLines, 'XData', LetterAwLift(1:i,1), 'YData', LetterAwLift(1:i,2), 'ZData', LetterAwLift(1:i,3));
+    end
+    pause(0.1); % Small delay for animation effect
+    drawnow;
+end
+
+hold off;
