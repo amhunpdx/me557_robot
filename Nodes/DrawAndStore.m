@@ -2,7 +2,7 @@ clc; clear; close all;
 
 % Create a figure for drawing
 fig = figure;
-axis([-0.5 2 -0.5 2]); % Adjusted axis limits
+axis([-0.5 3 -0.5 3]); % Adjusted axis limits
 hold on;
 grid on;
 title('Draw your curves (Press Enter when done)');
