@@ -15,7 +15,7 @@ function plotWord(word)
     end
     
     % Define transformation shifts
-    shifts = [1.5, 0, -1.5, -3];
+    shifts = [1.75, 0, -1.75, -3.5];
     
     % Apply transformations and build word matrix
     wordMatrix = [];
