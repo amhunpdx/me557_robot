@@ -15,7 +15,7 @@ end
 
 % Define Motor Commands
 motorIDs = [5, 1];              % Motor IDs
-GoalPositions = [1000, 1000];     % Target positions
+GoalPositions = [0, 0];     % Target positions (max 1023 for small motors, 4095 for large)
 GoalSpeeds = [100, 100];        % Speed values
 
 % Send Command to Each Motor
