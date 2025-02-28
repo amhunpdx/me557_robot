@@ -1,7 +1,7 @@
 %% Controller
 
 % Serial Port Configuration
-portName = '/dev/tty.usbmodem2101'; % Change to match your setup
+portName = '/dev/tty.usbmodem101'; % Change to match your setup
 baudRate = 115200;
 dynamixel = serialport(portName, baudRate);
 
@@ -14,11 +14,9 @@ while dynamixel.NumBytesAvailable > 0
 end
 
 % Define Motor Commands
-motorIDs = [1,2,3,4,5];    
-homepositions=[2460,1970,360,304,515];
-%GoalPositions = [2000,2600,387,900,400];   
-GoalPositions=homepositions;
-GoalSpeeds = [50,50,50,50,50,50]; 
+motorIDs = [2];              % Motor IDs
+GoalPositions = [2000];   % Target positions (max 1023 for small motors, 4095 for large)
+GoalSpeeds = [50];        % Speed valuesc
 
 % Read and print initial motor positions
 disp("Initial Motor Positions:");
