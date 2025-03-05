@@ -7,7 +7,7 @@ function [M, Slist, hp] = RobotConfig()
 % hp=[546,2428,894,367,503];
 % thetalist0 = rem([hp(1)*step2rad_lg,hp(2)*step2rad_lg,hp(3)*step2rad_sm,hp(4)*step2rad_sm,hp(5)*step2rad_sm],2*pi);
 
-%hp=[546        2342         938         385         503           0];
+hp=[546        2342         938         385         503           0];
 
  M = [ 1  0  0 .03  ;
       0  1  0   .19;
