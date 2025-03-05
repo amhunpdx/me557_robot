@@ -1,7 +1,7 @@
 %% Controller
 
 % Serial Port Configuration
-portName = '/dev/tty.usbmodem1101'; % Change to match your setup
+portName = '/dev/tty.usbmodem101'; % Change to match your setup
 baudRate = 115200;
 dynamixel = serialport(portName, baudRate);
 
@@ -15,20 +15,20 @@ while dynamixel.NumBytesAvailable > 0
     read(dynamixel, dynamixel.NumBytesAvailable, "uint8");
 end
 
-A1=[ 649,2613 ,891 ,415 ,478];
+%A1=[ 649,2613 ,891 ,415 ,478];
 %A2=[ , , , , ,];
 %A3=[ , , , , ,];
 %A4=[ , , , , ,];
 %A5=[ , , , , ,];
 
-theta=[(2*pi)-.42;.79;.52;(2*pi)-.26;.17];
-rad2step_sm=195.3785;
-rad2step_lg=651.739;
+% theta=[(2*pi)-.42;.79;.52;(2*pi)-.26;.17];
+% rad2step_sm=195.3785;
+% rad2step_lg=651.739;
 % Define Motor Commands
 motorIDs = [1,2,3,4,5];     % 1,2 4095 max  3,4,5 1023 max
-homepositions=[546,2428,894,367,503]; %center of board
-homepositions2=[ 546        2342         938         385         503           0]; %center of board
-homepositions_topleft=[860,2374,823,288,414];
+% homepositions=[546,2428,894,367,503]; %center of board
+homepositions=[ 546        2342         938         385         503           0]; %center of board
+% homepositions_topleft=[860,2374,823,288,414];
 %GoalPositions = [2000,1700,100,1000,400];   
 %GoalPositions=A1;
 %GoalPositions=hp;

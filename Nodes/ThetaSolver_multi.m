@@ -3,7 +3,7 @@ addpath('./mr')
 T = Tbuilder(word); % Generate transformation matrices set
 [M, Slist, hp] = RobotConfig;
 
-thetalist0 = [-.42; .79; .52; -.26; .17; 0]; % Initial guess
+thetalist0 = [0.8009    3.8482    4.6299    2.0106    2.6142         0]; % Initial guess
 eomg = 10^-3;
 ev = 10^-3;
 

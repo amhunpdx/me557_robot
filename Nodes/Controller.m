@@ -23,23 +23,23 @@ end
 %A4=[ , , , , ,];
 %A5=[ , , , , ,];
 
-hometheta=[0.6981,3.1045,4.5757,1.8784,2.5745];
-theta=hometheta;
-
-thetaconv_sm=(1023*3)/(5*pi);
-thetaconv_lg=(4095*3)/(5*pi);
+% hometheta=[0.6981,3.1045,4.5757,1.8784,2.5745];
+% theta=hometheta;
+% 
+% thetaconv_sm=(1023*3)/(5*pi);
+% thetaconv_lg=(4095*3)/(5*pi);
 
 % Define Motor Commands
-motorIDs = [1,2,3,4,5];    
-GoalPositions=[theta(1)*thetaconv_lg,
-    theta(2)*thetaconv_lg, 
-    theta(3)*thetaconv_sm,
-    theta(4)*thetaconv_sm,
-    theta(5)*thetaconv_sm];
+% motorIDs = [1,2,3,4,5];    
+%GoalPositions=[747        2028         967         320         443],
+%     theta(2)*thetaconv_lg, 
+%     theta(3)*thetaconv_sm,
+%     theta(4)*thetaconv_sm,
+%     theta(5)*thetaconv_sm];
 
-%homepositions=[546,2428,894,367,503];
+homepositions=[546,2428,894,367,503];
 %GoalPositions = [2000,1700,100,1000,400];   
-%GoalPositions=A1;
+GoalPositions=homepositions;
 
 GoalSpeeds = [50,50,50,50,50,50]; 
 
