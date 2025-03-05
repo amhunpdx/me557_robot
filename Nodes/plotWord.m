@@ -15,7 +15,7 @@ function plotWord(word)
     end
     
     % Define transformation shifts
-    shifts = [1.75, 0, -1.75, -3.5];
+    shifts = [.04, 0, -.04, -.08];
     
     % Apply transformations and build word matrix
     wordMatrix = [];
@@ -29,7 +29,7 @@ function plotWord(word)
     figure;
     hold on;
     grid on;
-   axis([-4 4 -.5 3 -.5 16.5]);; % Adjusted for 3D space
+   axis([-0.1 0.1 -0.0127 0.0762]);; % Adjusted for 3D space
     xlabel('X'); ylabel('Y'); zlabel('Z');
     title(['Animated 3D Plot of Word: ' word]);
     view(3);

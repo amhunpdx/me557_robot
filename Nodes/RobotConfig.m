@@ -1,42 +1,48 @@
-function [M, Slist] = RobotConfig()
+function [M, Slist, hp] = RobotConfig()
 
+% Hand-calibrated homing values
 
-    % Home Configuration Matrix (M) in meters
- M = [1, 0, 0, 0;
-     0, 1, 0, 0.1397;
-     0, 0, 1, 0.3048;
-     0, 0, 0, 1];
+% step2rad_lg=0.00153435653;
+% step2rad_sm=0.00511593255;
+% hp=[546,2428,894,367,503];
+% thetalist0 = rem([hp(1)*step2rad_lg,hp(2)*step2rad_lg,hp(3)*step2rad_sm,hp(4)*step2rad_sm,hp(5)*step2rad_sm],2*pi);
 
-    % % Screw Axes (angular velocity components w)
-    % w1 = [0; 1; 0];
-    % w2 = [0; 0; 1];
-    % w3 = [0; 0; 1];
-    % w4 = [0; 0; 1];
-    % w5 = [0; 1; 0];
+%hp=[546        2342         938         385         503           0];
 
-    % % Joint locations (position vectors r) in meters
-    % r1 = [0; 0; 0];
-    % r2 = [0; (4.8146 * in_to_m); 0];
-    % r3 = [(9.8425 * in_to_m); (4.8146 * in_to_m); 0];
-    % r4 = [(19.685 * in_to_m); (4.8146 * in_to_m); 0];
-    % r5 = [(20.2598 * in_to_m); 0; (1.2378 * in_to_m)];
-    % 
-    % % Correctly compute linear velocity components (v = r × w)
-    % v1 = cross(w1, r1);
-    % v2 = cross(w2, r2);
-    % v3 = cross(w3, r3);
-    % v4 = cross(w4, r4);
-    % v5 = cross(w5, r5);
+ M = [ 1  0  0 .03  ;
+      0  1  0   .19;
+      0  0  1   .41;
+      0  0  0   1   ];
 
-    % Construct screw axes
+w1 = [0; 1; 0];
+w2 = [1; 0; 0];
+w3 = [1; 0; 0];
+w4 = [-1; 0; 0];
+w5 = [0; 1; 0];
+w6 = [0;0;0];
 
-S1 = [0; 1; 0; 0; 0; 0];                      % Base rotation about y-axis
-S2 = [0; 0; 1; 0.12229; 0; 0];                % Vertical axis
-S3 = [0; 0; 1; 0.12229; -0.250; 0];           % Second vertical rotation
-S4 = [0; 0; 1; 0.12229; -0.500; 0];           % Third vertical rotation
-S5 = [0; 1; 0; -0.03144; 0; 0.5145];          % End-effector rotation about y-axis
+r1 = [0; 0; 0];
+r2 = [0; .122; 0];
+r3 = [0; -.36; 0.1];
+r4 = [0; 0.165; 0.265];
+r5 = [0.045; 0.2; 0.28];
+r6 = [.03;.19;.41];
 
+v1=cross(w1,r1);
+v2=cross(w2,r2);
+v3=cross(w3,r3);
+v4=cross(w4,r4);
+v5=cross(w5,r5);
+v6=cross(w6,r6);
 
-    % Ensure `Slist` is `6×5`
-    Slist = [S1, S2, S3, S4, S5];
+S1 = [w1; v1];
+S2 = [w2; v2];
+S3 = [w3; v3];
+S4 = [w4; v4];
+S5 = [w5; v5];
+S6 = [w6; v6];
+
+Slist = [S1, S2, S3, S4, S5,S6];
+
 end
+

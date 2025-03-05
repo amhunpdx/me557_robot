@@ -1,12 +1,16 @@
 %% Controller
 
 % Serial Port Configuration
-portName = '/dev/tty.usbmodem2101'; % Change to match your setup
+portName = '/dev/tty.usbmodem101'; % Change to match your setup
 baudRate = 115200;
 dynamixel = serialport(portName, baudRate);
 
 % Give time for initialization
 pause(0.5);
+
+
+motorIDs = [1,2,3,4,5];  %missing before?
+
 
 % Flush any existing bytes in buffer
 while dynamixel.NumBytesAvailable > 0
