@@ -1,7 +1,7 @@
 function T_matrices = Tbuilder(word)
     % Initialize cell array to store T matrices
     T_matrices = cell(size(word,1),1);
-    
+
     for i = 1:size(word,1);
         x = word(i,1);
         y = word(i,2);
@@ -13,5 +13,6 @@ function T_matrices = Tbuilder(word)
         
         % Store in cell array
         T_matrices{i} = T;
+        
     end
 end

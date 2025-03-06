@@ -1,27 +1,37 @@
-
 addpath('./mr')
+hp=[546,2443,901,365,503,0];
 
+% Motor step-to-radian conversion factors
+MX64_step_to_rad = (0.088 * pi) / 180; % Dynamixel MX-64
+AX12_step_to_rad = (0.29 * pi) / 180;  % Dynamixel AX-12
 
- % T = [ 1  0  0 .03  ;
- %      0  1  0   .17;
- %      0  0  1   .41;
- %      0  0  0   1   ];
- % 
+% Motor steps at centerboard position
+% gp_centerboard = [522, 2508, 905, 393, 511, 0];
 
- M = [ 1  0  0 .03144  ;
-      0  1  0   .15754;
-      0  0  1   .-0.5-pen;
+% Convert steps to radians
+ thetalist0 = zeros(1, 6);
+% thetalist0(1:2) = gp_centerboard(1:2) * MX64_step_to_rad; % First 2 motors are MX-64
+% thetalist0(3:6) = gp_centerboard(3:6) * AX12_step_to_rad; % Remaining motors are AX-12
+
+% Homogeneous transformation matrix for centerboard position
+T = [ 1  0  0 -.05  ;
+      0  1  0   .26;
+      0  0  1   .406;
       0  0  0   1   ];
 
-[M,Slist]=RobotConfig
+% Load robot configuration
+[M, Slist] = RobotConfig;
 
-thetalist0 = [-.42;.79;.52;-.26;.17;0]
 
-eomg = 10^-3;
-ev = 10^-3;
+% Inverse kinematics solver parameters
+eomg = 1e-3;
+ev = 1e-3;
 
+% Solve inverse kinematics
 [thetalist, success] = IKinSpace(Slist, M, T, thetalist0, eomg, ev);
+thetalist=thetalist(1:6);
 
+% Display results
 if success
     fprintf('Estimated joint angles (radians):\n');
     disp(thetalist);
@@ -29,10 +39,7 @@ else
     disp('No Solution Found');
 end
 
-%Solutions found are in radians. The following converts radians to motor
-%steps (based on motor size)
-rad2step_sm=195.3785;
-rad2step_lg=651.739;
+rad2step_sm = 195.3785;
+rad2step_lg = 651.739;
 
-hp=RobotConfig;
-posmap = round([thetalist(1)*rad2step_lg,thetalist(2)*rad2step_lg,thetalist(3)*rad2step_sm,thetalist(4)*rad2step_sm,thetalist(5)*rad2step_sm,thetalist(6)]+hp)
+gp=[rem(thetalist(1)*rad2step_lg,4095),rem(thetalist(2)*rad2step_lg,4095),rem(thetalist(3)*rad2step_sm,1024),rem(thetalist(4)*rad2step_sm,1024),rem(thetalist(5)*rad2step_sm,1024),0]+hp

@@ -1,83 +1,43 @@
-%% Controller
-
 % Serial Port Configuration
-portName = '/dev/tty.usbmodem101'; % Change to match your setup
+portName = '/dev/tty.usbmodem2101'; 
 baudRate = 115200;
 dynamixel = serialport(portName, baudRate);
 
 % Give time for initialization
 pause(0.5);
 
+% Motor IDs
+motorIDs = [1,2,3,4,5];  
 
-motorIDs = [1,2,3,4,5];  %missing before?
-
-
-% Flush any existing bytes in buffer
+% Flush existing buffer
 while dynamixel.NumBytesAvailable > 0
     read(dynamixel, dynamixel.NumBytesAvailable, "uint8");
 end
+homepositions=[546, 2443, 901, 365, 503]; 
+% Set goal positions and speeds
+GoalPositions=homepositions
+%GoalPositions = [700, 2000, 901, 300, 300];  % Example goal positions
+GoalSpeeds = [10, 10, 10, 10, 10];  % Same speed for all
 
-%A1=[ 649,2613 ,891 ,415 ,478];
-%A2=[ , , , , ,];
-%A3=[ , , , , ,];
-%A4=[ , , , , ,];
-%A5=[ , , , , ,];
-
-% hometheta=[0.6981,3.1045,4.5757,1.8784,2.5745];
-% theta=hometheta;
-% 
-% thetaconv_sm=(1023*3)/(5*pi);
-% thetaconv_lg=(4095*3)/(5*pi);
-
-% Define Motor Commands
-% motorIDs = [1,2,3,4,5];    
-%GoalPositions=[747        2028         967         320         443],
-%     theta(2)*thetaconv_lg, 
-%     theta(3)*thetaconv_sm,
-%     theta(4)*thetaconv_sm,
-%     theta(5)*thetaconv_sm];
-
-homepositions=[546,2428,894,367,503];
-%GoalPositions = [2000,1700,100,1000,400];   
-GoalPositions=homepositions;
-
-GoalSpeeds = [50,50,50,50,50,50]; 
-
-
-
-% Read and print initial motor positions
-disp("Initial Motor Positions:");
-pause(0.1);
-while dynamixel.NumBytesAvailable > 0
-    disp(readline(dynamixel));
-end
-
-% Send Command to Each Motor
+% Construct command packet
+dataPacket = zeros(1, numel(motorIDs) * 4, 'uint8');
+index = 1;
 for i = 1:numel(motorIDs)
-    ID = motorIDs(i);
     pos = GoalPositions(i);
     speed = GoalSpeeds(i);
-    
-    % Send (ID, pos low byte, pos high byte, speed low byte, speed high byte)
-    write(dynamixel, [ID, bitand(pos, 255), bitshift(pos, -8), bitand(speed, 255), bitshift(speed, -8)], "uint8");
-    pause(0.1);
-    
-    % Read and print debug messages from Arduino
-    while dynamixel.NumBytesAvailable > 0
-        disp(readline(dynamixel));
-    end
+    dataPacket(index:index+3) = [bitand(pos, 255), bitshift(pos, -8), bitand(speed, 255), bitshift(speed, -8)];
+    index = index + 4;
 end
 
-% Wait for movements to finish
-pause(1);
-
-% Read and print final motor positions
-disp("Final Motor Positions:");
+% Send all motor data in one batch
+write(dynamixel, dataPacket, "uint8");
 pause(0.1);
+
+% Read and print responses
+disp("Motor Responses:");
 while dynamixel.NumBytesAvailable > 0
     disp(readline(dynamixel));
 end
 
 % Cleanup
 clear dynamixel
-clearvars()
