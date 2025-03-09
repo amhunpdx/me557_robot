@@ -9,7 +9,7 @@ end
 
 % Serial Port Configuration
 disp("Initializing serial...");
-portName = '/dev/tty.usbmodem2101'; % Adjust to match your setup
+portName = '/dev/tty.usbmodem1101'; % Adjust to match your setup
 baudRate = 115200;
 dynamixel = serialport(portName, baudRate);
 
@@ -31,7 +31,7 @@ GoalSpeeds = [10,10,10,10,10];
 % Position tolerance for stopping condition
 posTolerance = 2;
 
- Function to get current motor positions
+ %Function to get current motor positions
 getCurrentPositions = @() readMotorPositions(dynamixel, numel(motorIDs));
 
 disp("Starting movement sequence...");

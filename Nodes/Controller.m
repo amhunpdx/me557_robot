@@ -1,5 +1,5 @@
 % Serial Port Configuration
-portName = '/dev/tty.usbmodem2101'; 
+portName = '/dev/tty.usbmodem1101'; 
 baudRate = 115200;
 dynamixel = serialport(portName, baudRate);
 
@@ -13,11 +13,11 @@ motorIDs = [1,2,3,4,5];
 while dynamixel.NumBytesAvailable > 0
     read(dynamixel, dynamixel.NumBytesAvailable, "uint8");
 end
-homepositions=[546, 2443, 901, 365, 503]; 
+homepositions=[546, 2443, 901, 390, 503]; 
 % Set goal positions and speeds
 GoalPositions=homepositions
 %GoalPositions = [700, 2000, 901, 300, 300];  % Example goal positions
-GoalSpeeds = [10, 10, 10, 10, 10];  % Same speed for all
+GoalSpeeds = [20, 20, 20, 25, 30];  
 
 % Construct command packet
 dataPacket = zeros(1, numel(motorIDs) * 4, 'uint8');

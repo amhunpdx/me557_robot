@@ -48,7 +48,7 @@ for row = 1:size(posmap, 1)
     write(dynamixel, dataPacket, "uint8");
 
     % **Tiny delay to prevent MATLAB from overloading the serial buffer**
-    pause(0.01); 
+    pause(0.1); 
 
     % Flush the serial buffer after each move command
     while dynamixel.NumBytesAvailable > 0

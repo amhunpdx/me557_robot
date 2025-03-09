@@ -4,7 +4,7 @@ addpath('./mr')
 [M, Slist, hp] = RobotConfig;
 
 % Initial guess for thetalist
-thetalist0 = [.1,.1,.1,.1,.1]; 
+thetalist0 = [.1, .2, .1, 0, 0]; 
 
 % Error tolerances
 eomg = 10^-3;

@@ -1,10 +1,7 @@
 addpath('./mr')
 
-% Load robot configuration
-[M, Slist, hp] = RobotConfig;
-
 % Initial guess for thetalist
-thetalist0 = [.1,.1,.1,.1,.1]; 
+thetalist0 = [.1, .2, .1, 0, 0]; 
 
 % Error tolerances
 eomg = 10^-3;
@@ -43,7 +40,7 @@ for i = 1:num_T
                          thetalist_truncated(2) * rad2step_lg, ...
                          thetalist_truncated(3) * rad2step_sm, ...
                          thetalist_truncated(4) * rad2step_sm, ...
-                         thetalist_truncated(5) * rad2step_sm] + hp(1:5));
+                         thetalist_truncated(5) * rad2step_sm]);
 
         % Append all computed positions (removing uniqueness constraint)
         posmap = [posmap; new_row]; %#ok<AGROW>
