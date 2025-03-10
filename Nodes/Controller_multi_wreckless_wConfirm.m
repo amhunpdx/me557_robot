@@ -9,7 +9,7 @@ end
 
 % Serial Port Configuration
 disp("Initializing serial...");
-portName = '/dev/tty.usbmodem1101'; % Adjust to match your setup
+portName = '/dev/tty.usbmodem101'; % Adjust to match your setup
 baudRate = 115200;
 dynamixel = serialport(portName, baudRate);
 

@@ -54,6 +54,11 @@ for i = 1:num_T
     end
 end
 
+% offset for pen angle
+posmap(:, 4) = posmap(:, 4) + 60;
+posmap(:, 5) = posmap(:, 5) - 10;
+
+
 % Display results
 disp('Motor positions (steps):');
 disp(posmap);

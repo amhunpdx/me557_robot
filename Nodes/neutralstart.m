@@ -13,11 +13,11 @@ motorIDs = [1,2,3,4,5];
 while dynamixel.NumBytesAvailable > 0
     read(dynamixel, dynamixel.NumBytesAvailable, "uint8");
 end
-homepositions=[546, 2443, 901, 390, 503]; 
+neutralpos=[1550, 2300, 1000, 700, 503]; 
 % Set goal positions and speeds
-GoalPositions=homepositions
+GoalPositions=neutralpos
 %GoalPositions = [700, 2000, 901, 300, 300];  % Example goal positions
-GoalSpeeds = [20, 25, 20, 25, 30];  
+GoalSpeeds = [20, 20, 20, 25, 30];  
 
 % Construct command packet
 dataPacket = zeros(1, numel(motorIDs) * 4, 'uint8');
