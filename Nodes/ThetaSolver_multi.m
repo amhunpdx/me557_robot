@@ -1,7 +1,26 @@
+%% ThetaSolver_multi
+% Takes input, T (cell of transformation matrices) and solves for motor
+% angles, thetalist. Converts motor angles to absolute step postions.
+%
+
+% 5-axis robotic arm project
+% ME557 - Portland State University - Winter 2025
+% Amos Hunter, Zach Carlson, Matt Crisp, Beau Garland, Nedzad Ljaljic
+%
+% Credits
+% Modern Robotics (Lynch 2019)
+% Group collaboration with : Elvis Barry, Sam Bechtel, Ben Bolen, Jose Brambila
+% Pelayo, August Bueche, Jonathan Cervantes, Wilson Cumbi, Trisha Edmisten,
+% Lauryn Gormaly, Tyson Ly, Stu McNeal,Priyanka Prakash, Chanraiksmeiy San,
+% and Laura Skinner. Some portions of this code were written with assistance 
+% from ChatGPT (https://openai.com 2025) and MATLAB Answers forums
+% (https://www.mathworks.com/matlabcentral 2025).
+%
+
 addpath('./mr')
 
 % Load robot configuration
-[M, Slist, hp] = RobotConfig;
+[ttyspot, M, Slist, hp] = RobotConfig;
 
 % Initial guess for thetalist
 thetalist0 = [.1,.1,.1,.1,.1]; 

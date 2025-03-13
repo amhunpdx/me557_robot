@@ -1,15 +1,43 @@
+%% DrawAndStore
+% User draws curves using drawfreehand, xy points are stored. z values
+% are added based on board distance. Lift-off waypoints are added between
+% curves to allow for pen lift to the next curve. Outputs "word" matrix.
+% 
+% Built-in offsets (post-processing applied to waypoints in word matrix):
+% pointdiv, lift_base, lift_off_distance, pure_z_steps, stroke_gap_threshold, 
+% board_width, whiteboard_z, TopLeftZAdjust, TopRightZAdjust, BottomLeftZAdjust,
+% BottomRightZAdjust, CenterZAdjust, CenterWeightPower, BulkZAdjust, x_offset, 
+% y_offset
+% 
+% Load and run controller.ino on microcontroller before running. 
+% Run DrawAndStore.m to generate posmap
+% Check RobotConfig(ttyspot) for current USB port location.
 
-pointdiv = 1;         % subdivides between waypoints
+% 5-axis robotic arm project
+% ME557 - Portland State University - Winter 2025
+% Amos Hunter, Zach Carlson, Matt Crisp, Beau Garland, Nedzad Ljaljic
+%
+% Credits
+% Modern Robotics (Lynch 2019)
+% Group collaboration with : Elvis Barry, Sam Bechtel, Ben Bolen, Jose Brambila
+% Pelayo, August Bueche, Jonathan Cervantes, Wilson Cumbi, Trisha Edmisten,
+% Lauryn Gormaly, Tyson Ly, Stu McNeal,Priyanka Prakash, Chanraiksmeiy San,
+% and Laura Skinner. Some portions of this code were written with assistance 
+% from ChatGPT (https://openai.com 2025) and MATLAB Answers forums
+% (https://www.mathworks.com/matlabcentral 2025).
+%
+
+pointdiv = 2;         % subdivides between waypoints
 lift_base = 5;        % Base number of points per lift-off 
 lift_off_distance = -0.080000;  % Negative => moves pen away from the board along Z
-pure_z_steps = 10;     % number of steps with no X,Y movement
+pure_z_steps = 20;     % number of steps with no X,Y movement
 stroke_gap_threshold = 0.5 * 0.025400;  % distance between points that triggers lift-off
 
 board_width  = 0.220000;   
 board_height = 0.160000;   
 
 % Load robot config (for nominal Z)
-[M, Slist, hp] = RobotConfig();
+[ttyspot, M, Slist, hp] = RobotConfig();
 whiteboard_z = M(3,4);  
 
 % Z skew adjustments at corners (meters) using a rigid planar (bilinear) model:
@@ -49,7 +77,7 @@ while keepDrawing
     % Convert 2D points to 3D 
     adjusted_points = [h.Position, repmat(whiteboard_z, size(h.Position, 1), 1)];
     % Optional: add a vertical offset (Y axis) if desired.
-    adjusted_points(:,2) = adjusted_points(:,2) + 0.100000;  % REDUNDANT - TEST WITHOUT
+    adjusted_points(:,2) = adjusted_points(:,2) + 0.100000;  % REDUNDANT? - TEST WITHOUT
     
     if isempty(lettertest01)
         stroke_indices = 1;
