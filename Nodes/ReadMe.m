@@ -4,8 +4,8 @@
 % Amos Hunter, Zach Carlson, Matt Crisp, Beau Garland, Nedzad Ljaljic
 %
 % Contents:
-% centerboard.m, controller.m, DrawAndStore.m, gobot.m, neutralstart.m,
-% ReadMe.m, RobotConfig.m, Tbuilder.m, ThetaSolver_multi.m
+% Robot Presentation (John Hancock).pdf centerboard.m, controller.m, DrawAndStore.m, 
+% gobot.m, neutralstart.m, ReadMe.m, RobotConfig.m, Tbuilder.m, ThetaSolver_multi.m
 %
 % To Run:
 % 1) Update ttyspot serial location in RobotConfig.m based on active port
